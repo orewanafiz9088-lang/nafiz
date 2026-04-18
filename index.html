@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nafizur Rahman — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+
+  <style>
+    /* ============================================================
+       NAFIZUR RAHMAN — FUTURISTIC GLASSMORPHISM PORTFOLIO
+    ============================================================
+    HOW TO EDIT IMAGES:
+      Search for the comment:  <!-- CHANGE IMAGE HERE -->
+      Replace src="..." with your own image path or URL.
+      Example: src="images/my-photo.jpg"
+    ============================================================ */
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: #0a0d14;
+      color: #e2e8f0;
+      font-family: 'Exo 2', sans-serif;
+      overflow-x: hidden;
+    }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0a0d14; }
+    ::-webkit-scrollbar-thumb { background: #00b4ff; border-radius: 3px; }
+
+    /* ---- KEYFRAMES ---- */
+    @keyframes float        { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-14px)} }
+    @keyframes glowPulse    { 0%,100%{box-shadow:0 0 10px #00b4ff44} 50%{box-shadow:0 0 30px #00b4ffaa,0 0 60px #00b4ff44} }
+    @keyframes particleDrift{ 0%{transform:translateY(0) translateX(0);opacity:0} 10%{opacity:.8} 90%{opacity:.8} 100%{transform:translateY(-90vh) translateX(30px);opacity:0} }
+    @keyframes timelineGlow { 0%,100%{box-shadow:0 0 6px #00b4ff} 50%{box-shadow:0 0 20px #00b4ff,0 0 40px #0066ff55} }
+    @keyframes blink        { 0%,100%{opacity:1} 50%{opacity:0} }
+    @keyframes spinSlow     { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+    @keyframes fadeInUp     { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes slideInRight { from{opacity:0;transform:translateX(30px)} to{opacity:1;transform:translateX(0)} }
+
+    /* ---- UTILITIES ---- */
+    .orbitron { font-family: 'Orbitron', monospace; }
+    .glow-text { text-shadow: 0 0 20px #00b4ff88, 0 0 40px #00b4ff44; }
+    .float-anim { animation: float 4s ease-in-out infinite; }
+    .glow-border { animation: glowPulse 3s ease-in-out infinite; }
+
+    .glass {
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(0,180,255,0.15);
+      border-radius: 16px;
+    }
+    .glass-strong {
+      background: rgba(0,180,255,0.06);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(0,180,255,0.25);
+      border-radius: 20px;
+    }
+
+    /* ---- SECTION REVEAL ---- */
+    .section-reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .section-reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ---- GRID BACKGROUND ---- */
+    .grid-bg {
+      background-image:
+        linear-gradient(rgba(0,180,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,180,255,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    /* ---- NAVBAR ---- */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      padding: 18px 48px;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: all 0.4s ease;
+    }
+    #navbar.scrolled {
+      background: rgba(10,13,20,0.88);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(0,180,255,0.15);
+      padding: 12px 48px;
+    }
+    .nav-logo { font-family: 'Orbitron', monospace; font-size: 18px; font-weight: 900; text-decoration: none; }
+    .nav-logo span:first-child { color: #00b4ff; }
+    .nav-logo .slash { color: rgba(255,255,255,0.2); margin: 0 8px; }
+    .nav-logo .sub { font-size: 11px; color: #4a5568; letter-spacing: 2px; }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      color: #a0aec0; text-decoration: none;
+      font-family: 'Orbitron', monospace; font-size: 12px; letter-spacing: 1px;
+      position: relative; transition: color 0.3s;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 2px;
+      background: #00b4ff; box-shadow: 0 0 8px #00b4ff;
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover { color: #00b4ff; }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* ---- PARTICLES ---- */
+    #particles { position: fixed; inset: 0; pointer-events: none; z-index: 1; overflow: hidden; }
+    .particle {
+      position: absolute; bottom: -10px; border-radius: 50%;
+    }
+
+    /* ---- HERO ---- */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden; padding-top: 80px;
+      background:
+        radial-gradient(ellipse at 20% 50%, #001a3366 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, #00b4ff11 0%, transparent 50%),
+        radial-gradient(ellipse at 60% 80%, #0033661a 0%, transparent 50%),
+        #0a0d14;
+    }
+    .hero-inner {
+      display: flex; align-items: center; gap: 80px;
+      max-width: 1100px; width: 100%; padding: 0 40px;
+      flex-wrap: wrap; justify-content: center; position: relative; z-index: 2;
+    }
+    .hero-text { flex: 1; min-width: 300px; }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(0,180,255,0.1); border: 1px solid rgba(0,180,255,0.3);
+      border-radius: 20px; padding: 6px 18px;
+      font-family: 'Orbitron', monospace; font-size: 12px; color: #00b4ff;
+      margin-bottom: 24px; letter-spacing: 2px;
+    }
+    .hero-name-1 {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(32px, 5vw, 56px); font-weight: 900; line-height: 1.1;
+      margin-bottom: 6px;
+    }
+    .hero-name-2 {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(32px, 5vw, 56px); font-weight: 900; line-height: 1.1;
+      margin-bottom: 24px;
+      background: linear-gradient(135deg, #00b4ff, #0066ff);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero-typing { font-size: 18px; margin-bottom: 32px; min-height: 32px; }
+    #typed-text { color: #00b4ff; }
+    .cursor-blink { color: #00b4ff; animation: blink 1s step-end infinite; }
+    .hero-desc { color: #718096; line-height: 1.7; max-width: 460px; margin-bottom: 40px; font-size: 15px; }
+    .social-row { display: flex; gap: 16px; margin-bottom: 40px; }
+    .social-icon {
+      width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;
+      text-decoration: none; border-radius: 12px;
+      font-size: 17px; font-weight: 900; font-family: Arial, sans-serif;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .social-icon:hover { transform: translateY(-4px) scale(1.1); }
+    .btn-primary {
+      background: linear-gradient(135deg, #00b4ff, #0066ff);
+      border: none; border-radius: 8px; color: white; cursor: pointer;
+      font-family: 'Orbitron', monospace; font-size: 13px; font-weight: 700;
+      letter-spacing: 2px; padding: 14px 32px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      text-transform: uppercase; text-decoration: none; display: inline-block;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px #00b4ff66; }
+
+    /* Photo */
+    .hero-photo-wrap { position: relative; }
+    .hero-ring-1 {
+      position: absolute; inset: -20px; border-radius: 50%;
+      border: 2px dashed rgba(0,180,255,0.3);
+      animation: spinSlow 15s linear infinite;
+    }
+    .hero-ring-2 {
+      position: absolute; inset: -40px; border-radius: 50%;
+      border: 1px dashed rgba(0,102,255,0.2);
+      animation: spinSlow 25s linear infinite reverse;
+    }
+    .hero-photo {
+      width: 280px; height: 280px; border-radius: 50%;
+      overflow: hidden; position: relative;
+      background: linear-gradient(135deg,#001a33,#003366);
+      border: 3px solid rgba(0,180,255,0.4);
+    }
+    /* CHANGE IMAGE HERE — replace src with your actual photo */
+    /* Add this inside .hero-photo:  <img src="images/nafizur.jpg" alt="Nafizur Rahman" style="width:100%;height:100%;object-fit:cover;"> */
+    .hero-photo-placeholder {
+      width:100%; height:100%;
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      background: linear-gradient(135deg,#001a33,#003366);
+    }
+    .hero-photo-placeholder .icon { font-size: 80px; line-height:1; }
+    .hero-photo-placeholder .label {
+      font-size: 11px; color: #00b4ff; font-family: 'Orbitron', monospace;
+      letter-spacing: 2px; margin-top: 12px;
+    }
+    .hero-status-badge {
+      position: absolute; bottom: 20px; right: -20px;
+      background: rgba(0,212,170,0.15); border: 1px solid rgba(0,212,170,0.4);
+      border-radius: 12px; padding: 8px 14px;
+      display: flex; align-items: center; gap: 8px;
+      backdrop-filter: blur(12px);
+    }
+    .status-dot { width:8px; height:8px; border-radius:50%; background:#00d4aa; box-shadow:0 0 8px #00d4aa; }
+    .status-text { font-size: 12px; color: #00d4aa; font-family: 'Orbitron', monospace; }
+    .scroll-down {
+      position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      color: #4a5568; text-decoration: none; font-size: 12px;
+      font-family: 'Orbitron', monospace; letter-spacing: 2px;
+      animation: float 2.5s ease-in-out infinite;
+    }
+    .scroll-line { width:2px; height:40px; background: linear-gradient(to bottom, #00b4ff, transparent); }
+    .orb1 {
+      position:absolute; top:15%; right:8%; width:400px; height:400px; border-radius:50%;
+      background: radial-gradient(circle,#00b4ff08,transparent 70%);
+      border:1px solid #00b4ff11; animation: spinSlow 30s linear infinite; pointer-events:none;
+    }
+    .orb2 {
+      position:absolute; bottom:10%; left:5%; width:300px; height:300px; border-radius:50%;
+      background: radial-gradient(circle,#0066ff08,transparent 70%);
+      border:1px solid #0066ff11; animation: spinSlow 20s linear infinite reverse; pointer-events:none;
+    }
+
+    /* ---- SECTION SHARED ---- */
+    .section-label {
+      color: #00b4ff; font-family: 'Orbitron', monospace;
+      font-size: 12px; letter-spacing: 4px; margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(28px, 4vw, 42px); margin-bottom: 48px;
+    }
+    .section-title .accent { color: #00b4ff; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+
+    /* ---- PORTFOLIO ---- */
+    #portfolio { padding: 100px 40px; }
+    .tab-row { display: flex; gap: 12px; margin-bottom: 40px; flex-wrap: wrap; }
+    .tab-btn {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px; padding: 10px 24px;
+      color: #718096; cursor: pointer;
+      font-family: 'Orbitron', monospace; font-size: 12px;
+      letter-spacing: 1px; transition: all 0.3s ease;
+    }
+    .tab-btn.active {
+      background: linear-gradient(135deg, rgba(0,180,255,0.13), rgba(0,102,255,0.13));
+      border-color: #00b4ff; color: #00b4ff;
+    }
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px,1fr));
+      gap: 24px;
+    }
+    .project-card {
+      overflow: hidden; cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .project-card:hover {
+      transform: perspective(800px) rotateY(-5deg) rotateX(3deg) scale(1.04);
+      box-shadow: 0 20px 60px #00b4ff33, 0 0 30px #00b4ff22;
+    }
+    .card-thumb {
+      height: 180px; position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    /* CHANGE IMAGE HERE — to add real images, replace the card-thumb-placeholder with:
+       <img src="images/your-design.jpg" alt="Design name" style="width:100%;height:100%;object-fit:cover;"> */
+    .card-thumb-placeholder {
+      width:100%; height:100%;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .card-num {
+      position:absolute; top:10px; right:10px;
+      border-radius:6px; padding:4px 10px;
+      font-size:11px; font-family:'Orbitron',monospace;
+    }
+    .card-icon-box {
+      width:80px; height:80px; border-radius:12px;
+      display:flex; align-items:center; justify-content:center;
+      font-size:28px; backdrop-filter:blur(8px); position:relative; z-index:1;
+    }
+    .card-body { padding: 16px; }
+    .card-title { font-size:14px; font-weight:600; margin-bottom:6px; font-family:'Orbitron',monospace; }
+    .card-desc { font-size:12px; color:#718096; }
+
+    /* ---- TIMELINE ---- */
+    #experience { padding: 100px 40px; background: rgba(0,180,255,0.02); }
+    .timeline { position: relative; max-width: 800px; margin: 0 auto; }
+    .timeline-line {
+      position: absolute; left: 28px; top: 0; bottom: 0; width: 2px;
+      background: linear-gradient(to bottom, #00b4ff, #0066ff44, transparent);
+      box-shadow: 0 0 12px #00b4ff44;
+    }
+    .timeline-item { display: flex; gap: 32px; margin-bottom: 48px; }
+    .tl-dot {
+      min-width: 58px; height: 58px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; position: relative; z-index: 1; flex-shrink: 0;
+      animation: timelineGlow 2s ease-in-out infinite;
+    }
+    .tl-content { flex: 1; padding: 24px; }
+    .tl-period {
+      display: inline-block; border-radius: 6px; padding: 3px 12px;
+      font-size: 11px; font-family: 'Orbitron', monospace;
+      letter-spacing: 1px; margin-bottom: 12px;
+    }
+    .tl-title { font-family: 'Orbitron', monospace; font-size: 16px; margin-bottom: 4px; }
+    .tl-org { font-size: 13px; margin-bottom: 12px; font-weight: 500; }
+    .tl-desc { color: #718096; font-size: 14px; line-height: 1.7; }
+
+    /* ---- QUIZ SLIDER ---- */
+    #tools { padding: 100px 0; overflow: hidden; }
+    .tools-header { padding: 0 40px; max-width: 1100px; margin: 0 auto 40px; }
+    .tools-sub { color: #718096; margin-top: 12px; font-size: 14px; }
+    .quiz-slider {
+      display: flex; overflow-x: auto; gap: 24px; padding: 24px 40px 40px;
+      scroll-snap-type: x mandatory; scroll-behavior: smooth;
+      scrollbar-width: thin; scrollbar-color: #00b4ff #1a1f2e;
+    }
+    .quiz-card {
+      min-width: 320px; overflow: hidden; flex-shrink: 0; cursor: pointer;
+      scroll-snap-align: start;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .quiz-card:hover { transform: translateY(-8px); }
+    .quiz-thumb {
+      height: 200px; display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    /* CHANGE IMAGE HERE — replace quiz-thumb-placeholder with:
+       <img src="images/quiz-screenshot.png" alt="Quiz screenshot" style="width:100%;height:100%;object-fit:cover;"> */
+    .quiz-num {
+      position:absolute; top:16px; left:16px; width:36px; height:36px; border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      font-family:'Orbitron',monospace; font-size:13px; font-weight:900;
+    }
+    .quiz-body { padding: 20px; }
+    .quiz-meta { font-size:11px; font-family:'Orbitron',monospace; letter-spacing:1px; margin-bottom:8px; }
+    .quiz-title { font-family:'Orbitron',monospace; font-size:14px; margin-bottom:8px; }
+    .quiz-cat { color:#718096; font-size:13px; }
+
+    /* ---- SKILLS ---- */
+    #skills { padding: 100px 40px; background: rgba(0,180,255,0.02); }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px,1fr));
+      gap: 32px; margin-bottom: 48px;
+    }
+    .skill-group { padding: 32px; }
+    .skill-group-title {
+      font-family: 'Orbitron', monospace; font-size: 14px;
+      margin-bottom: 28px; letter-spacing: 2px;
+    }
+    .skill-item { margin-bottom: 18px; }
+    .skill-label {
+      display: flex; justify-content: space-between; margin-bottom: 8px;
+    }
+    .skill-name { display:flex; align-items:center; gap:8px; font-size:14px; font-weight:500; }
+    .skill-pct { color:#00b4ff; font-size:13px; font-family:'Orbitron',monospace; }
+    .skill-track {
+      height: 6px; background: rgba(255,255,255,0.06);
+      border-radius: 4px; overflow: hidden;
+    }
+    .skill-fill {
+      height: 100%; border-radius: 4px;
+      background: linear-gradient(90deg,#00b4ff,#0066ff);
+      box-shadow: 0 0 10px #00b4ff66;
+      width: 0; transition: width 1.5s ease;
+    }
+    .tags-row { display: flex; flex-wrap: wrap; gap: 12px; }
+    .skill-tag {
+      background: rgba(0,180,255,0.08);
+      border: 1px solid rgba(0,180,255,0.2);
+      border-radius: 20px; padding: 6px 18px;
+      font-size: 13px; color: #a0aec0;
+      transition: all 0.3s; cursor: default;
+    }
+    .skill-tag:hover { background: rgba(0,180,255,0.15); color: #00b4ff; border-color: #00b4ff55; }
+
+    /* ---- CONTACT ---- */
+    #contact { padding: 100px 40px 60px; }
+    .contact-inner { max-width: 900px; margin: 0 auto; }
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1.5fr; gap: 48px;
+    }
+    .contact-info-title {
+      font-family:'Orbitron',monospace; font-size:14px;
+      margin-bottom:28px; color:#00b4ff; letter-spacing:2px;
+    }
+    .cinfo-item { display:flex; align-items:flex-start; gap:16px; margin-bottom:24px; }
+    .cinfo-icon {
+      width:44px; height:44px; border-radius:10px;
+      background:rgba(0,180,255,0.1); border:1px solid rgba(0,180,255,0.2);
+      display:flex; align-items:center; justify-content:center;
+      font-size:18px; flex-shrink:0;
+    }
+    .cinfo-label { font-size:11px; color:#4a5568; font-family:'Orbitron',monospace; letter-spacing:1px; margin-bottom:4px; }
+    .cinfo-value { color:#a0aec0; font-size:14px; text-decoration:none; transition:color 0.3s; }
+    .cinfo-value:hover { color:#00b4ff; }
+
+    .contact-form-wrap { padding: 32px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    .form-field { margin-bottom: 16px; }
+    .form-label {
+      display:block; font-size:12px; color:#4a5568;
+      font-family:'Orbitron',monospace; letter-spacing:1px; margin-bottom:8px;
+    }
+    .contact-input {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(0,180,255,0.2);
+      border-radius: 10px; color: #e2e8f0;
+      padding: 12px 16px; width: 100%; outline: none;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      font-family: 'Exo 2', sans-serif; font-size: 14px;
+    }
+    .contact-input:focus { border-color: #00b4ff; box-shadow: 0 0 16px #00b4ff33; }
+    .contact-input::placeholder { color: #4a5568; }
+    textarea.contact-input { resize: vertical; }
+    .form-submit { width: 100%; justify-content: center; }
+    .form-success { text-align:center; padding:40px 0; display:none; }
+    .form-success .s-icon { font-size:48px; margin-bottom:16px; }
+    .form-success h3 { font-family:'Orbitron',monospace; color:#00d4aa; margin-bottom:8px; }
+    .form-success p { color:#718096; }
+
+    /* ---- FOOTER ---- */
+    .footer-bar {
+      margin-top: 80px; padding-top: 32px;
+      border-top: 1px solid rgba(0,180,255,0.1);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .footer-logo { font-family:'Orbitron',monospace; font-size:16px; font-weight:900; }
+    .footer-logo .accent { color: #00b4ff; }
+    .footer-logo .slash { color: rgba(255,255,255,0.15); margin: 0 8px; }
+    .footer-logo .sub { font-size:11px; color:#4a5568; letter-spacing:2px; }
+    .footer-copy { color:#4a5568; font-size:13px; }
+
+    /* ---- LIGHTBOX ---- */
+    #lightbox {
+      display: none;
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,0.92); backdrop-filter: blur(8px);
+      align-items: center; justify-content: center;
+      animation: fadeInUp 0.3s ease;
+    }
+    #lightbox.open { display: flex; }
+    .lb-inner {
+      max-width: 600px; width: 90%; overflow: hidden;
+      position: relative;
+    }
+    .lb-close {
+      position:absolute; top:16px; right:16px; z-index:10;
+      background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2);
+      border-radius:50%; width:36px; height:36px;
+      color:white; cursor:pointer; font-size:20px; line-height:36px; text-align:center;
+    }
+    .lb-thumb { height:320px; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; }
+    /* CHANGE IMAGE HERE — when adding real images to lightbox, replace lb-thumb-placeholder with:
+       <img id="lb-img" src="" alt="" style="width:100%;height:100%;object-fit:cover;"> */
+    .lb-body { padding: 24px; }
+    .lb-title { font-family:'Orbitron',monospace; font-size:20px; margin-bottom:8px; }
+    .lb-desc { color:#a0aec0; font-size:14px; margin-bottom:16px; }
+    .lb-tags { display:flex; gap:8px; }
+    .lb-tag { border-radius:20px; padding:4px 14px; font-size:12px; }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 768px) {
+      #navbar { padding: 14px 20px; }
+      #navbar.scrolled { padding: 10px 20px; }
+      .nav-links { display: none; }
+      .hero-inner { gap: 40px; padding: 0 20px; }
+      .hero-photo { width: 220px; height: 220px; }
+      #portfolio, #experience, #skills, #contact { padding: 60px 20px; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .quiz-slider { padding: 20px; }
+      .section-inner { padding: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============ PARTICLES ============ -->
+<div id="particles"></div>
+
+<!-- ============ NAVBAR ============ -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">
+    <span>NR</span><span class="slash">/</span><span class="sub">PORTFOLIO</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#hero">About</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section id="hero" class="grid-bg">
+  <div class="orb1"></div>
+  <div class="orb2"></div>
+
+  <div class="hero-inner">
+    <!-- LEFT: Text -->
+    <div class="hero-text">
+      <div class="hero-badge">📍 DHAKA, BANGLADESH</div>
+
+      <h1 class="hero-name-1">NAFIZUR</h1>
+      <h1 class="hero-name-2">RAHMAN</h1>
+
+      <div class="hero-typing">
+        <span id="typed-text"></span><span class="cursor-blink">|</span>
+      </div>
+
+      <p class="hero-desc">
+        Crafting impactful digital experiences through strategic marketing,
+        compelling design, and innovative web development. Turning ideas
+        into measurable results.
+      </p>
+
+      <div class="social-row">
+        <!-- LinkedIn -->
+        <a href="https://linkedin.com/in/nafiz-d-nahid-4b35173bb" target="_blank" class="social-icon glass"
+           style="color:#0077b5; border:1px solid #0077b544;">in</a>
+        <!-- Email -->
+        <a href="mailto:orewanafiz9088@gmail.com" class="social-icon glass"
+           style="color:#00b4ff; border:1px solid #00b4ff44;">✉</a>
+        <!-- Phone -->
+        <a href="tel:01864254858" class="social-icon glass"
+           style="color:#00d4aa; border:1px solid #00d4aa44;">📞</a>
+      </div>
+
+      <a href="#portfolio" class="btn-primary">View My Work</a>
+    </div>
+
+    <!-- RIGHT: Photo -->
+    <div class="hero-photo-wrap float-anim">
+      <div class="hero-ring-1"></div>
+      <div class="hero-ring-2"></div>
+
+      <div class="hero-photo glow-border">
+        <!-- ✅ APNAR PHOTO EI LINE E — src er moddhe apnar file er naam likhun -->
+        <img src="nafiz.jpeg" alt="Nafizur Rahman" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+      </div>
+
+      <div class="hero-status-badge">
+        <div class="status-dot"></div>
+        <span class="status-text">AVAILABLE</span>
+      </div>
+    </div>
+  </div>
+
+  <a href="#portfolio" class="scroll-down">
+    SCROLL
+    <div class="scroll-line"></div>
+  </a>
+</section>
+
+<!-- ============ PORTFOLIO GALLERY ============ -->
+<section id="portfolio">
+  <div class="section-inner section-reveal">
+    <p class="section-label">— MY WORK</p>
+    <h2 class="section-title">Portfolio <span class="accent glow-text">Gallery</span></h2>
+
+    <div class="tab-row">
+      <button class="tab-btn active" onclick="switchTab('businessCards', this)">Business Cards</button>
+      <button class="tab-btn" onclick="switchTab('coverDesigns', this)">Cover Designs</button>
+      <button class="tab-btn" onclick="switchTab('posterDesigns', this)">Poster Designs</button>
+    </div>
+
+    <div class="portfolio-grid" id="portfolio-grid"></div>
+  </div>
+</section>
+
+<!-- ============ EXPERIENCE & EDUCATION ============ -->
+<section id="experience">
+  <div class="section-inner section-reveal" style="max-width:800px;">
+    <p class="section-label">— MY JOURNEY</p>
+    <h2 class="section-title">Experience & <span class="accent glow-text">Education</span></h2>
+
+    <div class="timeline">
+      <div class="timeline-line"></div>
+
+      <!-- Work Experience -->
+      <div class="timeline-item">
+        <div class="tl-dot" style="background:rgba(0,180,255,0.15);border:2px solid #00b4ff;">💼</div>
+        <div class="tl-content glass">
+          <span class="tl-period" style="background:rgba(0,180,255,0.15);border:1px solid rgba(0,180,255,0.3);color:#00b4ff;">
+            2023 — Present
+          </span>
+          <h3 class="tl-title">Marketing Head</h3>
+          <p class="tl-org" style="color:#00b4ff;">Grapse</p>
+          <p class="tl-desc">
+            Leading full-stack digital marketing strategy — brand identity, social media campaigns,
+            graphic design, and growth hacking. Overseeing a team of designers and marketers.
+          </p>
+        </div>
+      </div>
+
+      <!-- Education -->
+      <div class="timeline-item">
+        <div class="tl-dot" style="background:rgba(0,102,255,0.15);border:2px solid #0066ff;">🎓</div>
+        <div class="tl-content glass">
+          <span class="tl-period" style="background:rgba(0,102,255,0.15);border:1px solid rgba(0,102,255,0.3);color:#0066ff;">
+            2024 — Present
+          </span>
+          <h3 class="tl-title">BSc in Tourism & Hospitality Management</h3>
+          <p class="tl-org" style="color:#0066ff;">Noakhali Science and Technology University (NSTU)</p>
+          <p class="tl-desc">
+            1st Year student. Developing analytical thinking, leadership, and management skills
+            alongside digital marketing expertise.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ QUIZ / EDUCATIONAL TOOLS ============ -->
+<section id="tools">
+  <div class="tools-header section-reveal">
+    <p class="section-label">— DIGITAL TOOLS</p>
+    <h2 class="section-title" style="margin-bottom:8px;">Educational <span class="accent glow-text">Digital Tools</span></h2>
+    <p class="tools-sub">SurveyHeart quizzes & assessments crafted for marketing education</p>
+  </div>
+
+  <div class="quiz-slider" id="quiz-slider"></div>
+</section>
+
+<!-- ============ SKILLS ============ -->
+<section id="skills">
+  <div class="section-inner section-reveal">
+    <p class="section-label">— EXPERTISE</p>
+    <h2 class="section-title">Skills <span class="accent glow-text">Cloud</span></h2>
+
+    <div class="skills-grid" id="skills-grid"></div>
+
+    <div class="tags-row" id="tags-row"></div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact">
+  <div class="contact-inner section-reveal">
+    <p class="section-label" style="text-align:center;">— GET IN TOUCH</p>
+    <h2 class="section-title" style="text-align:center;margin-bottom:16px;">Let's <span class="accent glow-text">Connect</span></h2>
+    <p style="color:#718096;text-align:center;margin-bottom:56px;font-size:15px;">
+      Have a project in mind? Let's create something exceptional together.
+    </p>
+
+    <div class="contact-grid">
+      <!-- Info -->
+      <div>
+        <p class="contact-info-title">CONTACT INFO</p>
+        <div class="cinfo-item">
+          <div class="cinfo-icon">📞</div>
+          <div>
+            <p class="cinfo-label">PHONE</p>
+            <a href="tel:01864254858" class="cinfo-value">01864254858</a>
+          </div>
+        </div>
+        <div class="cinfo-item">
+          <div class="cinfo-icon">✉️</div>
+          <div>
+            <p class="cinfo-label">EMAIL</p>
+            <a href="mailto:orewanafiz9088@gmail.com" class="cinfo-value">orewanafiz9088@gmail.com</a>
+          </div>
+        </div>
+        <div class="cinfo-item">
+          <div class="cinfo-icon">💼</div>
+          <div>
+            <p class="cinfo-label">LINKEDIN</p>
+            <a href="https://linkedin.com/in/nafiz-d-nahid-4b35173bb" target="_blank" class="cinfo-value">nafiz-d-nahid</a>
+          </div>
+        </div>
+        <div class="cinfo-item">
+          <div class="cinfo-icon">📍</div>
+          <div>
+            <p class="cinfo-label">LOCATION</p>
+            <span class="cinfo-value">Dhaka, Bangladesh</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div class="contact-form-wrap glass">
+        <div id="form-body">
+          <div class="form-row">
+            <div>
+              <label class="form-label">NAME</label>
+              <input class="contact-input" type="text" id="f-name" placeholder="Your name"/>
+            </div>
+            <div>
+              <label class="form-label">EMAIL</label>
+              <input class="contact-input" type="email" id="f-email" placeholder="your@email.com"/>
+            </div>
+          </div>
+          <div class="form-field">
+            <label class="form-label">SUBJECT</label>
+            <input class="contact-input" type="text" id="f-subject" placeholder="Project inquiry..."/>
+          </div>
+          <div class="form-field">
+            <label class="form-label">MESSAGE</label>
+            <textarea class="contact-input" id="f-message" rows="4" placeholder="Tell me about your project..."></textarea>
+          </div>
+          <button class="btn-primary form-submit" onclick="submitForm()">SEND MESSAGE</button>
+        </div>
+        <div class="form-success" id="form-success">
+          <div class="s-icon">✅</div>
+          <h3>MESSAGE SENT!</h3>
+          <p>I'll get back to you soon.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bar">
+      <div class="footer-logo">
+        <span class="accent">NR</span>
+        <span class="slash">/</span>
+        <span class="sub">NAFIZUR RAHMAN</span>
+      </div>
+      <p class="footer-copy">© 2025 · Marketing Head @ Grapse · Dhaka, Bangladesh</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LIGHTBOX ============ -->
+<div id="lightbox" onclick="closeLightbox(event)">
+  <div class="lb-inner glass-strong" id="lb-inner">
+    <button class="lb-close" onclick="closeLightbox()">×</button>
+    <div class="lb-thumb" id="lb-thumb"></div>
+    <div class="lb-body">
+      <h2 class="lb-title" id="lb-title"></h2>
+      <p class="lb-desc" id="lb-desc"></p>
+      <div class="lb-tags">
+        <span class="lb-tag" id="lb-tag1" style="font-size:12px;"></span>
+        <span class="lb-tag" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:#a0aec0;font-size:12px;">Grapse</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ JAVASCRIPT ============ -->
+<script>
+// ================================================================
+// DATA
+// ================================================================
+const portfolioData = {
+  businessCards: [
+    { id:1, title:"bc1.jpg",  desc:"Minimalist dark theme with gold accents" },
+    { id:2, title:"Creative Agency Card",     desc:"Bold typography, electric blue" },
+    { id:3, title:"Tech Startup Card",        desc:"Glassmorphism style with gradients" },
+    { id:4, title:"Personal Brand Card",      desc:"Clean layout, premium feel" },
+    { id:5, title:"Luxury Brand Card",        desc:"Embossed effect, dark maroon" },
+    { id:6, title:"Digital Marketer Card",    desc:"Vibrant colors, modern design" },
+  ],
+  coverDesigns: [
+    { id:1, title:"Social Media Cover",       desc:"Facebook banner for tech brand" },
+    { id:2, title:"YouTube Thumbnail",        desc:"High-contrast, click-worthy design" },
+    { id:3, title:"LinkedIn Banner",          desc:"Professional personal branding" },
+    { id:4, title:"eBook Cover",              desc:"Marketing guide — bold typography" },
+    { id:5, title:"Event Cover",              desc:"Webinar promotional graphic" },
+    { id:6, title:"Album Art",                desc:"Abstract neon concept art" },
+  ],
+  posterDesigns: [
+    { id:1, title:"Event Poster",             desc:"Annual conference announcement" },
+    { id:2, title:"Product Launch",           desc:"Futuristic product reveal poster" },
+    { id:3, title:"Motivational Poster",      desc:"Typography-driven design" },
+    { id:4, title:"Festival Poster",          desc:"Cultural event, vivid colors" },
+    { id:5, title:"Campaign Poster",          desc:"Digital marketing campaign art" },
+    { id:6, title:"University Poster",        desc:"NSTU event promotional design" },
+  ],
+};
+
+const cardColors = {
+  businessCards: { bg1:"#001a33", bg2:"#003366", acc:"#00b4ff", icon:"💼" },
+  coverDesigns:  { bg1:"#1a0033", bg2:"#330066", acc:"#7c3aed", icon:"🖼️" },
+  posterDesigns: { bg1:"#001a0d", bg2:"#003322", acc:"#00d4aa", icon:"📋" },
+};
+
+const skills = [
+  { group:"DESIGN & CREATIVE",    color:"#00b4ff", items:[
+    { icon:"🎨", name:"Canva Design",         pct:95 },
+    { icon:"✏️", name:"Graphic Design",       pct:92 },
+    { icon:"🏷️", name:"Brand Identity",       pct:87 },
+    { icon:"🖱️", name:"UI/UX Basics",         pct:72 },
+  ]},
+  { group:"MARKETING & GROWTH",   color:"#0066ff", items:[
+    { icon:"📈", name:"Digital Marketing",    pct:90 },
+    { icon:"📱", name:"Social Media Strategy",pct:88 },
+    { icon:"🔍", name:"SEO / SEM",            pct:80 },
+    { icon:"📧", name:"Email Marketing",      pct:83 },
+  ]},
+  { group:"TECHNICAL & STRATEGY", color:"#00d4aa", items:[
+    { icon:"💻", name:"Web Development",      pct:75 },
+    { icon:"👑", name:"Leadership",           pct:85 },
+    { icon:"📝", name:"Content Creation",     pct:93 },
+    { icon:"📊", name:"Analytics",            pct:78 },
+  ]},
+];
+
+const techTags = ["Canva","Figma","Adobe Photoshop","React","HTML/CSS","WordPress",
+  "Google Ads","Meta Ads","MailChimp","SurveyHeart","Notion","Google Analytics"];
+
+const quizTools = [
+  { title:"Digital Marketing Quiz",    platform:"SurveyHeart", questions:"25 Questions", cat:"Marketing Fundamentals",     color:"#00b4ff" },
+  { title:"SEO Knowledge Test",        platform:"SurveyHeart", questions:"20 Questions", cat:"Search Engine Optimization",  color:"#0066ff" },
+  { title:"Brand Strategy Assessment", platform:"SurveyHeart", questions:"30 Questions", cat:"Branding & Identity",         color:"#00d4aa" },
+  { title:"Social Media Literacy",     platform:"SurveyHeart", questions:"18 Questions", cat:"Social Media Marketing",      color:"#7c3aed" },
+  { title:"Content Marketing Eval",    platform:"SurveyHeart", questions:"22 Questions", cat:"Content Strategy",            color:"#e11d48" },
+];
+
+// ================================================================
+// PARTICLES
+// ================================================================
+(function() {
+  const container = document.getElementById('particles');
+  const colors = ['#00b4ff','#0066ff','#00d4aa'];
+  for (let i = 0; i < 22; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const size = 2 + (i % 3);
+    p.style.cssText = `
+      width:${size}px; height:${size}px;
+      left:${(i*4.7+3)%100}%;
+      background:${colors[i%3]};
+      opacity:0.6;
+      animation: particleDrift ${8+(i%7)*1.5}s ${i*0.7}s ease-in infinite;
+    `;
+    container.appendChild(p);
+  }
+})();
+
+// ================================================================
+// NAVBAR SCROLL
+// ================================================================
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// ================================================================
+// TYPING EFFECT
+// ================================================================
+(function() {
+  const texts = ["Marketing Head @ Grapse","Graphic Designer","Web Developer","Brand Strategist"];
+  let ti = 0, ci = 0, deleting = false;
+  const el = document.getElementById('typed-text');
+  function tick() {
+    const cur = texts[ti];
+    if (!deleting && ci <= cur.length) {
+      el.textContent = cur.slice(0, ci++);
+      setTimeout(tick, 80);
+    } else if (!deleting && ci > cur.length) {
+      setTimeout(() => { deleting = true; tick(); }, 1800);
+    } else if (deleting && ci > 0) {
+      el.textContent = cur.slice(0, --ci);
+      setTimeout(tick, 40);
+    } else {
+      deleting = false; ti = (ti+1) % texts.length; setTimeout(tick, 200);
+    }
+  }
+  tick();
+})();
+
+// ================================================================
+// PORTFOLIO GRID
+// ================================================================
+let activeTab = 'businessCards';
+
+function renderGrid(tab) {
+  const grid = document.getElementById('portfolio-grid');
+  const data = portfolioData[tab];
+  const c = cardColors[tab];
+  grid.innerHTML = data.map(item => `
+    <div class="project-card glass" onclick="openLightbox(${item.id}, '${tab}')">
+      <div class="card-thumb" style="background:linear-gradient(135deg,${c.bg1},${c.bg2});">
+        <div style="position:absolute;inset:0;background:radial-gradient(circle at 70% 30%,${c.acc}44,transparent 60%);"></div>
+        <!-- CHANGE IMAGE HERE — replace card-thumb-placeholder div with:
+             <img src="images/your-design-${item.id}.jpg" alt="${item.title}" style="width:100%;height:100%;object-fit:cover;"> -->
+        <div class="card-icon-box" style="background:${c.acc}22;border:2px solid ${c.acc}66;">${c.icon}</div>
+        <div class="card-num" style="background:${c.acc}33;border:1px solid ${c.acc}55;color:${c.acc};">0${item.id}</div>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">${item.title}</h3>
+        <p class="card-desc">${item.desc}</p>
+      </div>
+    </div>
+  `).join('');
+}
+
+function switchTab(tab, btn) {
+  activeTab = tab;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderGrid(tab);
+}
+
+renderGrid('businessCards');
+
+// ================================================================
+// QUIZ SLIDER
+// ================================================================
+(function() {
+  const slider = document.getElementById('quiz-slider');
+  slider.innerHTML = quizTools.map((q, i) => `
+    <div class="quiz-card glass-strong" style="--hc:${q.color};"
+         onmouseenter="this.style.boxShadow='0 20px 60px ${q.color}33'"
+         onmouseleave="this.style.boxShadow=''">
+      <div class="quiz-thumb" style="background:linear-gradient(135deg,#0a0d14,${q.color}22);border-bottom:1px solid ${q.color}33;">
+        <div style="position:absolute;inset:0;background:radial-gradient(circle at 60% 40%,${q.color}22,transparent 70%);"></div>
+        <!-- CHANGE IMAGE HERE — replace below div with:
+             <img src="images/quiz-${i+1}.png" alt="${q.title}" style="width:100%;height:100%;object-fit:cover;"> -->
+        <div style="text-align:center;z-index:1;">
+          <div style="font-size:48px;margin-bottom:12px;">📊</div>
+          <div style="background:${q.color}22;border:1px solid ${q.color}44;border-radius:6px;padding:4px 12px;font-size:11px;color:${q.color};font-family:'Orbitron',monospace;">ADD SCREENSHOT</div>
+        </div>
+        <div class="quiz-num" style="background:${q.color}33;border:2px solid ${q.color};color:${q.color};">0${i+1}</div>
+      </div>
+      <div class="quiz-body">
+        <p class="quiz-meta" style="color:${q.color};">${q.platform} · ${q.questions}</p>
+        <h3 class="quiz-title">${q.title}</h3>
+        <p class="quiz-cat">${q.cat}</p>
+      </div>
+    </div>
+  `).join('');
+})();
+
+// ================================================================
+// SKILLS
+// ================================================================
+(function() {
+  const grid = document.getElementById('skills-grid');
+  grid.innerHTML = skills.map(group => `
+    <div class="skill-group glass">
+      <h3 class="skill-group-title" style="color:${group.color};">${group.group}</h3>
+      ${group.items.map((s, i) => `
+        <div class="skill-item">
+          <div class="skill-label">
+            <span class="skill-name">${s.icon} ${s.name}</span>
+            <span class="skill-pct">${s.pct}%</span>
+          </div>
+          <div class="skill-track">
+            <div class="skill-fill" data-pct="${s.pct}" style="transition-delay:${i*0.15}s;"></div>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `).join('');
+
+  // Tags
+  const tagsRow = document.getElementById('tags-row');
+  tagsRow.innerHTML = techTags.map(t => `<span class="skill-tag">${t}</span>`).join('');
+
+  // Animate bars on scroll
+  const bars = document.querySelectorAll('.skill-fill');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.width = e.target.dataset.pct + '%';
+      }
+    });
+  }, { threshold: 0.3 });
+  bars.forEach(b => obs.observe(b));
+})();
+
+// ================================================================
+// SECTION REVEAL (scroll animation)
+// ================================================================
+(function() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.section-reveal').forEach(el => observer.observe(el));
+})();
+
+// ================================================================
+// LIGHTBOX
+// ================================================================
+function openLightbox(id, tab) {
+  const item = portfolioData[tab].find(i => i.id === id);
+  const c = cardColors[tab];
+  document.getElementById('lb-title').textContent = item.title;
+  document.getElementById('lb-title').style.color = c.acc;
+  document.getElementById('lb-desc').textContent = item.desc;
+  document.getElementById('lb-tag1').textContent = 'Nafizur Rahman';
+  document.getElementById('lb-tag1').style.background = c.acc + '22';
+  document.getElementById('lb-tag1').style.border = '1px solid ' + c.acc + '44';
+  document.getElementById('lb-tag1').style.color = c.acc;
+
+  const thumb = document.getElementById('lb-thumb');
+  thumb.style.background = `linear-gradient(135deg, ${c.bg1}, ${c.bg2})`;
+  thumb.innerHTML = `
+    <div style="position:absolute;inset:0;background:radial-gradient(circle at 60% 40%,${c.acc}33,transparent 70%);"></div>
+    <!-- CHANGE IMAGE HERE — replace below div with:
+         <img src="images/your-design.jpg" alt="${item.title}" style="width:100%;height:100%;object-fit:cover;"> -->
+    <div style="text-align:center;z-index:1;">
+      <div style="font-size:60px;margin-bottom:16px;">${c.icon}</div>
+      <p style="color:${c.acc};font-size:12px;font-family:'Orbitron',monospace;letter-spacing:2px;">ADD YOUR IMAGE HERE</p>
+    </div>
+  `;
+
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox(e) {
+  if (!e || e.target === document.getElementById('lightbox') || e.target.classList.contains('lb-close')) {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+}
+
+// Close with Escape key
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox({ target: document.getElementById('lightbox') }); });
+
+// ================================================================
+// CONTACT FORM
+// ================================================================
+function submitForm() {
+  const name    = document.getElementById('f-name').value.trim();
+  const email   = document.getElementById('f-email').value.trim();
+  const subject = document.getElementById('f-subject').value.trim();
+  const message = document.getElementById('f-message').value.trim();
+  if (!name || !email || !message) {
+    alert('Please fill in Name, Email, and Message.');
+    return;
+  }
+  document.getElementById('form-body').style.display = 'none';
+  document.getElementById('form-success').style.display = 'block';
+  setTimeout(() => {
+    document.getElementById('form-body').style.display = 'block';
+    document.getElementById('form-success').style.display = 'none';
+    document.getElementById('f-name').value = '';
+    document.getElementById('f-email').value = '';
+    document.getElementById('f-subject').value = '';
+    document.getElementById('f-message').value = '';
+  }, 4000);
+}
+</script>
+</body>
+</html>
